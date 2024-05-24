@@ -8,8 +8,8 @@
 import UIKit
 
 class ViewController: UIViewController {
-    private let fakeData = ["Apple", "Orange", "Pear"]
-    
+    private var searchResults = [MovieSearchResult]()
+
     // MARK: - UI Components
     private let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -37,6 +37,8 @@ class ViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        searchBar.delegate = self
         
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
@@ -66,14 +68,43 @@ class ViewController: UIViewController {
 // MARK: - UITableViewDelegate
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fakeData.count
+        return searchResults.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         var content = cell.defaultContentConfiguration()
-        content.text = fakeData[indexPath.row]
+        content.text = searchResults[indexPath.row].title
         cell.contentConfiguration = content
         return cell
     }
+}
+
+extension ViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        Task {
+            do {
+                guard let searchBarText = searchBar.text else { return }
+                let results = try await performMovieSearchAPICall(title: searchBarText)
+                searchResults = results
+                tableView.reloadData()
+            } catch {
+                print(error)
+            }
+        }
+    }
+}
+
+// MARK: - API Calls
+
+enum VignetteError: Error {
+    case invalidURL(String)
+}
+
+func performMovieSearchAPICall(title: String) async throws -> [MovieSearchResult] {
+    let url = URL(string: "https://api.vignetteapp.com/search/movie?query=\(title)")
+    guard let url = url else { throw VignetteError.invalidURL("The API Endpoint URL is invalid")}
+    let (data, _) = try await URLSession.shared.data(from: url)
+    let response = try JSONDecoder().decode(MovieSearchWrapper.self, from: data)
+    return response.results
 }
