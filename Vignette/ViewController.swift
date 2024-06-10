@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.allowsSelection = true
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(SearchCell.self, forCellReuseIdentifier: SearchCell.identifier)
         return tableView
     }()
     
@@ -72,10 +72,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        var content = cell.defaultContentConfiguration()
-        content.text = searchResults[indexPath.row].title
-        cell.contentConfiguration = content
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchCell.identifier, for: indexPath) as? SearchCell else {
+            fatalError("Could not dequeue a SearchCell")
+        }
+        cell.configure(result: searchResults[indexPath.row])
         return cell
     }
 }
