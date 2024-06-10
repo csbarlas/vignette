@@ -66,8 +66,25 @@ class SearchCell: UITableViewCell {
         ])
     }
     
-    public func configure(result: MovieSearchResult) {
+    public func configure(result: MovieSearchResult) async throws {
         titleLabel.text = result.title
         titleLabel.sizeToFit()
+        
+        guard let poster_path = result.poster_path else { return }
+        let posterURLStr = "https://image.tmdb.org/t/p/w154\(poster_path)"
+        guard let posterURL = URL(string: posterURLStr) else {
+            throw VignetteError.invalidURL("Poster URL Endpoint was not valid: \(posterURLStr)")
+        }
+
+        try await posterThumbnailImageView.load(url: posterURL)
+    }
+}
+
+extension UIImageView {
+    func load(url: URL) async throws {
+        let (data, _) = try await URLSession.shared.data(from: url)
+        if let image = UIImage(data: data) {
+            self.image = image
+        }
     }
 }

@@ -75,7 +75,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchCell.identifier, for: indexPath) as? SearchCell else {
             fatalError("Could not dequeue a SearchCell")
         }
-        cell.configure(result: searchResults[indexPath.row])
+        
+        Task {
+            do {
+                try await cell.configure(result: searchResults[indexPath.row])
+            }
+        }
         return cell
     }
 }
