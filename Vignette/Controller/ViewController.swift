@@ -11,6 +11,18 @@ class ViewController: UIViewController {
     private var searchResults = [MovieSearchResult]()
 
     // MARK: - UI Components
+    private let topNavButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        var buttonConfig = UIButton.Configuration.plain()
+        buttonConfig.title = "Home"
+        buttonConfig.image = UIImage(systemName: "chevron.down.circle.fill", withConfiguration: UIImage.SymbolConfiguration(hierarchicalColor: .systemBlue))
+        buttonConfig.imagePlacement = .trailing
+        buttonConfig.imagePadding = 3.0
+        button.configuration = buttonConfig
+        return button
+    }()
+    
     private let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
@@ -34,6 +46,9 @@ class ViewController: UIViewController {
         
         self.view.addSubview(searchBar)
         self.view.addSubview(tableView)
+        self.view.addSubview(topNavButton)
+        
+        topNavButton.addTarget(self, action: #selector(navButtonPressed), for: .touchUpInside)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -41,7 +56,9 @@ class ViewController: UIViewController {
         searchBar.delegate = self
         
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            topNavButton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            topNavButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            searchBar.topAnchor.constraint(equalTo: topNavButton.bottomAnchor),
             searchBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             searchBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
@@ -62,6 +79,10 @@ class ViewController: UIViewController {
         DispatchQueue.main.async { [weak self] in
             self?.present(alert, animated: true)
         }
+    }
+    
+    @objc func navButtonPressed() {
+        topNavButton.configuration?.title = "Test"
     }
 }
 

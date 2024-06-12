@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D3062FC82C17CDCE00FA9656 /* MovieDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3062FC72C17CDCE00FA9656 /* MovieDetailController.swift */; };
 		D34E63342C1361A900A502D2 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34E63332C1361A900A502D2 /* SearchCell.swift */; };
 		D3ADA7052BFC360E006FAE70 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ADA7042BFC360E006FAE70 /* AppDelegate.swift */; };
 		D3ADA7072BFC360E006FAE70 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ADA7062BFC360E006FAE70 /* SceneDelegate.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D3062FC72C17CDCE00FA9656 /* MovieDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailController.swift; sourceTree = "<group>"; };
 		D34E63332C1361A900A502D2 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		D3ADA7012BFC360E006FAE70 /* Vignette.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vignette.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3ADA7042BFC360E006FAE70 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +43,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D3062FC62C17CD7300FA9656 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D3ADA7082BFC360E006FAE70 /* ViewController.swift */,
+				D3062FC72C17CDCE00FA9656 /* MovieDetailController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		D34E63322C13618F00A502D2 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -68,10 +79,10 @@
 		D3ADA7032BFC360E006FAE70 /* Vignette */ = {
 			isa = PBXGroup;
 			children = (
+				D3062FC62C17CD7300FA9656 /* Controller */,
 				D3D432EB2C0117C8005F5CFD /* Model */,
 				D3ADA7042BFC360E006FAE70 /* AppDelegate.swift */,
 				D3ADA7062BFC360E006FAE70 /* SceneDelegate.swift */,
-				D3ADA7082BFC360E006FAE70 /* ViewController.swift */,
 				D34E63322C13618F00A502D2 /* View */,
 				D3ADA70D2BFC360E006FAE70 /* Assets.xcassets */,
 				D3ADA70F2BFC360E006FAE70 /* LaunchScreen.storyboard */,
@@ -160,6 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3ADA7092BFC360E006FAE70 /* ViewController.swift in Sources */,
+				D3062FC82C17CDCE00FA9656 /* MovieDetailController.swift in Sources */,
 				D34E63342C1361A900A502D2 /* SearchCell.swift in Sources */,
 				D3ADA7052BFC360E006FAE70 /* AppDelegate.swift in Sources */,
 				D3D432ED2C0117DD005F5CFD /* MovieSearchWrapper.swift in Sources */,
