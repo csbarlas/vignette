@@ -39,6 +39,27 @@ class ViewController: UIViewController {
         return tableView
     }()
     
+    
+    
+    private let navMenu: UIMenu = {
+        let settingsAction: UIAction = {
+            let action = UIAction(title: "Settings", image: UIImage(systemName: "gear")) { _ in
+                
+            }
+            return action
+        }()
+        
+        let statsAction: UIAction = {
+            let action = UIAction(title: "Stats", image: UIImage(systemName: "chart.bar.fill")) { _ in
+                
+            }
+            return action
+        }()
+        
+        let menu = UIMenu(children: [statsAction, settingsAction])
+        return menu
+    }()
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +69,8 @@ class ViewController: UIViewController {
         self.view.addSubview(tableView)
         self.view.addSubview(topNavButton)
         
-        topNavButton.addTarget(self, action: #selector(navButtonPressed), for: .touchUpInside)
+        topNavButton.menu = navMenu
+        topNavButton.showsMenuAsPrimaryAction = true
         
         tableView.delegate = self
         tableView.dataSource = self
