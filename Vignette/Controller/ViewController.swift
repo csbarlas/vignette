@@ -15,8 +15,12 @@ class ViewController: UIViewController {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         var buttonConfig = UIButton.Configuration.plain()
-        buttonConfig.title = "Home"
-        buttonConfig.image = UIImage(systemName: "chevron.down.circle.fill", withConfiguration: UIImage.SymbolConfiguration(hierarchicalColor: .systemBlue))
+        var attributeContainer = AttributeContainer()
+        attributeContainer.font = UIFont.boldSystemFont(ofSize: 18.0)
+        buttonConfig.attributedTitle = AttributedString("Home", attributes: attributeContainer)
+        var imageConfig = UIImage.SymbolConfiguration(hierarchicalColor: .systemBlue)
+        imageConfig = imageConfig.applying(UIImage.SymbolConfiguration(pointSize: 13))
+        buttonConfig.image = UIImage(systemName: "chevron.down.circle.fill", withConfiguration: imageConfig)
         buttonConfig.imagePlacement = .trailing
         buttonConfig.imagePadding = 3.0
         button.configuration = buttonConfig
@@ -46,6 +50,7 @@ class ViewController: UIViewController {
             let action = UIAction(title: "Settings", image: UIImage(systemName: "gear")) { _ in
                 
             }
+            
             return action
         }()
         
