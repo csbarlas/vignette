@@ -9,6 +9,7 @@ import UIKit
 
 class SearchCell: UITableViewCell {
     static let identifier = "SearchCell"
+    public private(set) var searchResult: MovieSearchResult! = nil
     
     // MARK: - Properties
     private let posterThumbnailImage: UIImage = {
@@ -67,6 +68,7 @@ class SearchCell: UITableViewCell {
     }
     
     public func configure(result: MovieSearchResult) async throws {
+        searchResult = result
         titleLabel.text = result.title
         titleLabel.sizeToFit()
         
@@ -78,6 +80,7 @@ class SearchCell: UITableViewCell {
 
         try await posterThumbnailImageView.load(url: posterURL)
     }
+    
 }
 
 extension UIImageView {

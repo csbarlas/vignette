@@ -131,6 +131,20 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let cell = tableView.cellForRow(at: indexPath) as? SearchCell else {
+            fatalError("Could not fetch SearchCell at: \(indexPath.row)")
+        }
+        
+        let movieId = cell.searchResult.id
+        let movieDetailVC = MovieDetailController(movieId: movieId)
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.present(movieDetailVC, animated: true)
+        }
+    }
 }
 
 // MARK: - UISearchBarDelegate
